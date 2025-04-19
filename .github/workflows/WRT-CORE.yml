@@ -95,7 +95,7 @@ jobs:
       - name: Clone Code
         run: |
           # 使用LiBwrt推荐的源码获取方式
-          git clone --depth 1 --single-branch --branch $WRT_BRANCH "https://github.com/LiBwrt/openwrt-6.x.git" ./wrt/
+          git clone --depth=1 --shallow-submodules --branch $WRT_BRANCH "https://github.com/LiBwrt/openwrt-6.x.git" ./wrt/
           cd ./wrt/ && git submodule update --init --recursive --depth=1
 
           cd ./wrt/ && echo "WRT_HASH=$(git log -1 --pretty=format:'%h')" >> $GITHUB_ENV
@@ -159,11 +159,11 @@ jobs:
         run: |
           cd ./wrt/
     
-          # 使用LiBwrt官方推荐的feeds处理流程
+          # 分步执行feed更新
           ./scripts/feeds clean
-          ./scripts/feeds update -a
-          ./scripts/feeds install -a
-          make defconfig
+          for feed in packages luci routing telephony; do
+            ./scripts/feeds update $feed && ./scripts/feeds install -a -p $feed
+          done
           
 
       - name: Custom Packages
