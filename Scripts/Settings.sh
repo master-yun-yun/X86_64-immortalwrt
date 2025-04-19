@@ -47,10 +47,17 @@ fi
 #高通平台调整
 DTS_PATH="./target/linux/qualcommax/files/arch/arm64/boot/dts/qcom/"
 if [[ $WRT_TARGET == *"QUALCOMMAX"* ]]; then
-	# 内核配置适配
-	sed -i 's/CONFIG_LINUX_6_1=y/# CONFIG_LINUX_6_1 is not set/g' ./.config
-	sed -i 's/CONFIG_LINUX_6_6=y/# CONFIG_LINUX_6_6 is not set/g' ./.config
+	
+	# 强制指定工具链版本
+	echo "CONFIG_BINUTILS_VERSION_2_41=y" >> ./.config
+	echo "CONFIG_GCC_VERSION_12=y" >> ./.config
+	echo "CONFIG_GCC_USE_GRAPHITE=y" >> ./.config
+	echo "CONFIG_GCC_USE_LIBSANITIZER=n" >> ./.config
+	# 内核适配
+	sed -i '/CONFIG_LINUX_/d' ./.config
 	echo "CONFIG_LINUX_6_12=y" >> ./.config
+	echo "CONFIG_KERNEL_GIT_CLONE_VERIFY=y" >> ./.config
+
 	#取消nss相关feed
 	echo "CONFIG_FEED_nss_packages=n" >> ./.config
 	echo "CONFIG_FEED_sqm_scripts_nss=n" >> ./.config
