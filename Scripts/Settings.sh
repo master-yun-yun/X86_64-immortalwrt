@@ -47,9 +47,8 @@ fi
 #高通平台调整
 DTS_PATH="./target/linux/qualcommax/files/arch/arm64/boot/dts/qcom/"
 if [[ $WRT_TARGET == *"QUALCOMMAX"* ]]; then
-	# 使用LiBwrt默认内核配置
+	# 使用默认工具链配置
 	echo "CONFIG_LINUX_6_12=y" >> ./.config
-        echo "CONFIG_TOOLCHAINOPTS=y" >> ./.config  # 启用工具链自动配置
 
 	#取消nss相关feed
 	echo "CONFIG_FEED_nss_packages=n" >> ./.config
