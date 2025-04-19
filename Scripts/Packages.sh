@@ -43,10 +43,9 @@ UPDATE_PACKAGE() {
 		find ./$PKG_NAME -type f -name "Makefile" -exec sed -i 's/..\/..\/lang\/golang\/golang-package.mk/$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang-package.mk/g' {} +
   		# 强制指定automake版本
 		if [[ $PKG_NAME == *"aliyundrive-webdav"* ]]; then
-                           sed -i 's/autoreconf -fi/autoreconf -vfi --install --force/m' ./$PKG_NAME/Makefile  # 仅保留通用修复
+                           sed -i 's/autoreconf -fi/autoreconf -vfi/m' ./$PKG_NAME/Makefile
 		fi
-	##fi
-##}
+	
 	#--------以上原代码--------恢复时取消“##”（2个#）------#
  
 	# 处理克隆的仓库
