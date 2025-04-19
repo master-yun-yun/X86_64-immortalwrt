@@ -51,11 +51,7 @@ if [[ $WRT_TARGET == *"QUALCOMMAX"* ]]; then
 	sed -i '/CONFIG_LINUX_/d' ./.config
 	echo "CONFIG_LINUX_6_12=y" >> ./.config
 	echo "CONFIG_KERNEL_GIT_CLONE_VERIFY=y" >> ./.config
- 	# 工具链配置
-	echo "CONFIG_BINUTILS_VERSION_2_41=y" >> ./.config
-	echo "CONFIG_GCC_VERSION_12=y" >> ./.config
-	echo "CONFIG_GCC_USE_GRAPHITE=y" >> ./.config
-	echo "CONFIG_GCC_USE_LIBSANITIZER=n" >> ./.config
+        echo "CONFIG_TOOLCHAINOPTS=y" >> ./.config  # 启用工具链自动配置
 
 	#取消nss相关feed
 	echo "CONFIG_FEED_nss_packages=n" >> ./.config
