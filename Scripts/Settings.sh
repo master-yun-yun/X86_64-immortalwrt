@@ -47,7 +47,9 @@ fi
 #高通平台调整
 DTS_PATH="./target/linux/qualcommax/files/arch/arm64/boot/dts/qcom/"
 if [[ $WRT_TARGET == *"QUALCOMMAX"* ]]; then
-	# 设置6.12内核专用配置
+	# 内核配置适配
+	sed -i 's/CONFIG_LINUX_6_1=y/# CONFIG_LINUX_6_1 is not set/g' ./.config
+	sed -i 's/CONFIG_LINUX_6_6=y/# CONFIG_LINUX_6_6 is not set/g' ./.config
 	echo "CONFIG_LINUX_6_12=y" >> ./.config
 	#取消nss相关feed
 	echo "CONFIG_FEED_nss_packages=n" >> ./.config
