@@ -34,8 +34,10 @@ jobs:
       matrix:
         #CONFIG: [IPQ60XX-WIFI-YES, IPQ60XX-WIFI-NO, IPQ807X-WIFI-YES, IPQ807X-WIFI-NO]
         CONFIG: [IPQ60XX-WIFI-YES]
-        SOURCE: [VIKINGYFY/immortalwrt]
-        BRANCH: [main]
+        #SOURCE: [VIKINGYFY/immortalwrt]
+        #BRANCH: [main]
+        SOURCE: [LiBwrt/openwrt-6.x]
+        BRANCH: [kernel-6.12]
 
     #调用公用编译核心WRT-CORE.yml
     uses: ./.github/workflows/WRT-CORE.yml
