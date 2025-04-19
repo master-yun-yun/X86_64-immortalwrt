@@ -38,6 +38,9 @@ UPDATE_PACKAGE() {
 		##rm -rf ./$REPO_NAME/
 	##elif [[ $PKG_SPECIAL == "name" ]]; then
 		##mv -f $REPO_NAME $PKG_NAME
+  		# 修复6.12内核路径问题
+		find ./$PKG_NAME -type f -name "Makefile" -exec sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' {} +
+		find ./$PKG_NAME -type f -name "Makefile" -exec sed -i 's/..\/..\/lang\/golang\/golang-package.mk/$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang-package.mk/g' {} +
 	##fi
 ##}
 	#--------以上原代码--------恢复时取消“##”（2个#）------#
